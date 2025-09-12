@@ -18,7 +18,7 @@ class TimmClassificationModel:
         self.model = timm.create_model(model_name, pretrained=False, num_classes=num_classes)
         self.model.load_state_dict(torch.load(weights, map_location=self.device), strict=True)
         self.model.to(self.device).eval()
-        self.transform = self.default_transforms()
+        self.transform = self.model_specific_transforms(model_name)
 
 
     def predict(self, images: list[np.ndarray]):
@@ -32,18 +32,15 @@ class TimmClassificationModel:
             img = self.transform(img).unsqueeze(0).to(self.device)  # Add batch dimension
             with torch.no_grad():
                 logit = self.model(img)
-                prob = torch.sigmoid(logit).squeeze().cpu().item()
+                prob = torch.softmax(logit, dim=1)[:, 1].item()
 
             probs.append(prob)
 
         return probs
 
     @staticmethod
-    def default_transforms():
-        return transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=[0.485, 0.456, 0.406],
-                                 std=[0.229, 0.224, 0.225])
-        ])
+    def model_specific_transforms(model_name):
+        import timm
+        data_config = timm.data.resolve_data_config({}, model=model_name)
+        return timm.data.create_transform(**data_config)
 

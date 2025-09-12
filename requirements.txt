@@ -1,5 +1,10 @@
-SimpleITK
-numpy
 timm
+torch
 torchvision
+numpy
+pandas
+scikit-learn
+pillow
+tqdm
+SimpleITK
 

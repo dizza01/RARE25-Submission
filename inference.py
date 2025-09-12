@@ -46,37 +46,28 @@ def run():
 
 
 def interface_0_handler():
+    print('DEBUG: Starting interface_0_handler')
     # Read the input
     input_stacked_barretts_esophagus_endoscopy_images = load_image_file_as_array(
         location=INPUT_PATH / "images/stacked-barretts-esophagus-endoscopy",
     )
-    # Process the inputs: any way you'd like
+    print(f'DEBUG: Loaded input images, count: {len(input_stacked_barretts_esophagus_endoscopy_images)}')
     _show_torch_cuda_info()
-
-    # Optional: part of the Docker-container image: resources/
-    # resource_dir = Path("/opt/app/resources")
-    # with open(resource_dir / "some_resource.txt", "r") as f:
-    #     print(f.read())
-
-    """ Run your model here """
-    # for demonstration we will use the timm classification model from the model directory
     from model.timm_model import TimmClassificationModel
-    print('ResNet50-baseline')
+    print('ViT-base MAE fine-tuned')
     model = TimmClassificationModel(
-        model_name="resnet50",
-        num_classes=1,
-        weights=RESOURCE_PATH / "resnet50.pth",
+        model_name="vit_base_patch16_224.mae",
+        num_classes=2,
+        weights=RESOURCE_PATH / "vit_base_patch16_224_finetuned.pth",
     )
-
+    print('DEBUG: Model loaded, running prediction...')
     output_stacked_neoplastic_lesion_likelihoods = model.predict(input_stacked_barretts_esophagus_endoscopy_images)
-
-
-    # Save your output
+    print('DEBUG: Prediction complete, output:', output_stacked_neoplastic_lesion_likelihoods)
     write_json_file(
         location=OUTPUT_PATH / "stacked-neoplastic-lesion-likelihoods.json",
         content=output_stacked_neoplastic_lesion_likelihoods,
     )
-
+    print('DEBUG: Output written to file')
     return 0
 
 
