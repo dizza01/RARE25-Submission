@@ -1,12 +1,7 @@
 # RARE25 Baseline Submission
 
-This repository provides a baseline solution for the RARE25 challenge, including code for data import, model training, inference, and Docker-based submission.
+This repository provides a baseline solution for the RARE25 challenge, including code for data import, model training, inference, and Docker-based submission. It is forked from the RARE25 challenge which provides the skeleton file structure and baseline resnet50 model as an example. 
 
-## Overview
-- **Model:** 2D CNN (ResNet50) for image classification
-- **Framework:** PyTorch
-- **Containerization:** Docker
-- **Submission:** Grand Challenge platform
 
 ## Workflow
 
@@ -15,9 +10,8 @@ This repository provides a baseline solution for the RARE25 challenge, including
 - Example input images and metadata are provided for testing the pipeline.
 
 ### 2. Training the Model
-- Training scripts (not included in this baseline) are used to train a ResNet50 model on the public training data.
-- The trained model weights are saved as `resources/resnet50.pth`.
-- If you wish to retrain, use your own scripts and replace the weights file.
+- Training scripts exist in the jupyter notebook files
+- The trained model weights are saved in resources e.g `resources/resnet50.pth`.
 
 ### 3. Inference
 - The main inference logic is in `inference.py`.
@@ -52,5 +46,9 @@ This repository provides a baseline solution for the RARE25 challenge, including
 ## Customization
 - To improve the baseline, you can modify the model, training procedure, or inference logic.
 - Ensure any new dependencies are added to `requirements.txt` and the Dockerfile.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 
