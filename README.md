@@ -53,5 +53,4 @@ This repository provides a baseline solution for the RARE25 challenge, including
 - To improve the baseline, you can modify the model, training procedure, or inference logic.
 - Ensure any new dependencies are added to `requirements.txt` and the Dockerfile.
 
-## Contact
-For more details, refer to the RARE25 challenge documentation or contact the organizers.
+

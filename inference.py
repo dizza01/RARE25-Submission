@@ -56,9 +56,9 @@ def interface_0_handler():
     from model.timm_model import TimmClassificationModel
     print('ViT-base MAE fine-tuned')
     model = TimmClassificationModel(
-        model_name="vit_base_patch16_224.mae",
+        model_name="deit_base_patch16_224",
         num_classes=2,
-        weights=RESOURCE_PATH / "vit_base_patch16_224_finetuned.pth",
+        weights=RESOURCE_PATH / "vit_beit_finetuned.pth",
     )
     print('DEBUG: Model loaded, running prediction...')
     output_stacked_neoplastic_lesion_likelihoods = model.predict(input_stacked_barretts_esophagus_endoscopy_images)
